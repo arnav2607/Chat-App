@@ -113,6 +113,7 @@ import { useDispatch } from "react-redux";
 import { sendMessage } from "../redux/slices/chatSlice";
 import { Image, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
+import { Input, Button, Form, FormGroup, Container } from "reactstrap";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
@@ -166,35 +167,36 @@ const MessageInput = () => {
   };
 
   return (
-    <div className="p-4 w-full">
+    <Container fluid className="p-3 border-top">
       {/* Image Preview Section */}
       {imagePreview && (
-        <div className="mb-3 flex items-center gap-2">
-          <div className="relative">
+        <div className="mb-3 d-flex align-items-center gap-2">
+          <div className="position-relative">
             <img
               src={imagePreview}
               alt="Preview"
-              className="w-20 h-20 object-cover rounded-lg border border-zinc-700"
+              className="rounded border"
+              style={{ width: "80px", height: "80px", objectFit: "cover" }}
             />
-            <button
+            <Button
+              color="light"
               onClick={removeImage}
-              className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-base-300
-              flex items-center justify-center"
-              type="button"
+              className="position-absolute top-0 end-0 p-1 rounded-circle"
+              style={{ width: "20px", height: "20px" }}
             >
-              <X className="size-3" />
-            </button>
+              <X size={14} />
+            </Button>
           </div>
         </div>
       )}
 
       {/* Message Form */}
-      <form onSubmit={handleSendMessage} className="flex items-center gap-2">
-        <div className="flex-1 flex gap-2">
+      <Form onSubmit={handleSendMessage} className="d-flex align-items-center gap-2">
+        <FormGroup className="flex-grow-1 d-flex gap-2 m-0">
           {/* Text Input */}
-          <input
+          <Input
             type="text"
-            className="w-full input input-bordered rounded-lg input-sm sm:input-md"
+            className="form-control rounded"
             placeholder="Type a message..."
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -203,30 +205,27 @@ const MessageInput = () => {
           <input
             type="file"
             accept="image/*"
-            className="hidden"
+            className="d-none"
             ref={fileInputRef}
             onChange={handleImageChange}
           />
           {/* Image Upload Button */}
-          <button
+          <Button
             type="button"
-            className={`hidden sm:flex btn btn-circle
-                     ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+            color="light"
             onClick={() => fileInputRef.current?.click()}
+            className={`d-none d-sm-flex ${imagePreview ? "text-success" : "text-muted"}`}
           >
             <Image size={20} />
-          </button>
-        </div>
+          </Button>
+        </FormGroup>
+
         {/* Send Button */}
-        <button
-          type="submit"
-          className="btn btn-sm btn-circle"
-          disabled={!text.trim() && !imagePreview}
-        >
-          <Send size={22} />
-        </button>
-      </form>
-    </div>
+        <Button type="submit" color="primary" disabled={!text.trim() && !imagePreview}>
+          <Send size={20} />
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

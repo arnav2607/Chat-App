@@ -1,28 +1,27 @@
 import { MessageSquare } from "lucide-react";
+import { Container } from "reactstrap";
 
 const NoChatSelected = () => {
   return (
-    <div className="w-full flex flex-1 flex-col items-center justify-center p-16 bg-base-100/50">
-      <div className="max-w-md text-center space-y-6">
+    <Container fluid className="d-flex flex-column align-items-center justify-content-center p-5 bg-light flex-grow-1">
+      <div className="text-center">
         {/* Icon Display */}
-        <div className="flex justify-center gap-4 mb-4">
-          <div className="relative">
+        <div className="d-flex justify-content-center gap-4 mb-4">
+          <div className="position-relative">
             <div
-              className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center
-             justify-center animate-bounce"
+              className="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded p-3"
+              style={{ width: "64px", height: "64px", animation: "bounce 1.5s infinite" }}
             >
-              <MessageSquare className="w-8 h-8 text-primary " />
+              <MessageSquare size={32} className="text-primary" />
             </div>
           </div>
         </div>
 
         {/* Welcome Text */}
-        <h2 className="text-2xl font-bold">Welcome to Chatty!</h2>
-        <p className="text-base-content/60">
-          Select a conversation from the sidebar to start chatting
-        </p>
+        <h2 className="fw-bold">Welcome to Chatty!</h2>
+        <p className="text-muted">Select a conversation from the sidebar to start chatting</p>
       </div>
-    </div>
+    </Container>
   );
 };
 

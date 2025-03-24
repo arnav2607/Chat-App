@@ -39,6 +39,7 @@
 import { X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedUser } from "../redux/slices/chatSlice";
+import { Container, Row, Col, Button } from "reactstrap";
 
 const ChatHeader = () => {
   const dispatch = useDispatch();
@@ -48,31 +49,36 @@ const ChatHeader = () => {
   if (!selectedUser) return null;
 
   return (
-    <div className="p-2.5 border-b border-base-300">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+    <Container fluid className="border-bottom py-2">
+      <Row className="align-items-center justify-content-between">
+        <Col xs="auto" className="d-flex align-items-center gap-3">
           {/* Avatar */}
-          <div className="avatar">
-            <div className="size-10 rounded-full relative">
-              <img src={selectedUser.profilePic || "/avatar.png"} alt={selectedUser.fullName} />
-            </div>
+          <div className="position-relative">
+            <img
+              src={selectedUser.profilePic || "/avatar.png"}
+              alt={selectedUser.fullName}
+              className="rounded-circle border"
+              style={{ width: "40px", height: "40px" }}
+            />
           </div>
 
           {/* User info */}
           <div>
-            <h3 className="font-medium">{selectedUser.fullName}</h3>
-            <p className="text-sm text-base-content/70">
+            <h5 className="mb-0">{selectedUser.fullName}</h5>
+            <p className="text-muted small mb-0">
               {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
             </p>
           </div>
-        </div>
+        </Col>
 
         {/* Close button */}
-        <button onClick={() => dispatch(setSelectedUser(null))}>
-          <X />
-        </button>
-      </div>
-    </div>
+        <Col xs="auto">
+          <Button color="light" onClick={() => dispatch(setSelectedUser(null))} className="p-2">
+            <X size={20} />
+          </Button>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
