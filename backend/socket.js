@@ -21,7 +21,7 @@ export default function setupSocket(io) {
             });
         });
 
-        socket.on('join chat', (        ) => {
+        socket.on('join chat', ( roomId ) => {
             if (socket.currentRoom === roomId) return;
 
             if (socket.currentRoom) {
